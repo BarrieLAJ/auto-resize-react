@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+//import logo from './logo.svg';
+//import './App.css';
+import { Tile } from "./features/AutoSize";
 
-function App() {
+const App = () => {
+  // const elemRef = React.useRef(null);
+  //const [pElem, setPElem] = React.useState(elemRef.current)
+  // const [refIsSet, setRefIsSet]= React.useState(false)
+  // React.useEffect(() => {
+  //   setRefIsSet(true)
+  //   //console.log(pElem)
+  // },[])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div>This is a test</div>
+      <div>This is a test</div>
+      <div>This is a test</div>
+      <Tile>
+        {({ width, height,}) => (
+          <div
+            style={{ height, width, backgroundColor: "darkgoldenrod" }}
+          ></div>
+        )}
+      </Tile>
+      </>
   );
-}
+};
 
 export default App;
