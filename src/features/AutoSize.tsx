@@ -43,13 +43,6 @@ const Tile = (props: {
     setWidth(width);
   }, []);
 
-  // let style:CSSProperties = {}
-
-  // if(props.scrollBarProp){
-  //   style = {
-  //     overflowY: "auto"
-  //   }
-  // }
 
   //resize effect
   useEffect(() => {
