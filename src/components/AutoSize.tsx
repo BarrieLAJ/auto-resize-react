@@ -9,7 +9,6 @@ import styled from "styled-components";
 
 const TopElem =styled.div`
 height: 0;
-background-color: red;
 `
 
 const BottomElem = styled.div`
@@ -17,19 +16,16 @@ position: fixed;
 bottom: 0;
 right: 0;
 height: 0;
-background-color: green;
-z-index: -1;
 `
 
-const Tile = (props: {
-  scrollBarProp?: {}
+const AutoSize = (props: {
   className?: any
   children: ({ width, height }: { width: number; height: number, 
     className: string
   }) => ReactNode;
 }) => {
-  const topElem = useRef<any>(null);
-  const bottomElem = useRef<any>(null);
+  const topElem = useRef<any>();
+  const bottomElem = useRef<any>();
   const [height, setHeight] = useState<number>();
   const [width, setWidth] = useState<number>();
   const lastTimerRef = useRef<any>(-1)
@@ -42,7 +38,6 @@ const Tile = (props: {
     setHeight(height);
     setWidth(width);
   }, []);
-
 
   //resize effect
   useEffect(() => {
@@ -62,15 +57,10 @@ const Tile = (props: {
   }, [computeDimension]);
 
   //re-render after first mount
-  console.log(props.className)
   return (
     <>
-      <TopElem
-        ref={topElem}
-      />
-      <BottomElem
-        ref={bottomElem}
-      />
+      <TopElem ref={topElem}/>
+      <BottomElem ref={bottomElem} />
       {width !== undefined && height !== undefined
         ? props.children({ width, height, className:props.className })
         : null}
@@ -78,13 +68,4 @@ const Tile = (props: {
   );
 };
 
-
-export default styled(Tile)`
-  overflow-y: ${props => props.scrollBarProp ? "auto" : "hidden"};
-  overflow-x: hidden;
-  background-color: darkgoldenrod;
-`
-
-
-
-//styled.div``
+export default AutoSize
