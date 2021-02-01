@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, Method } from "axios";
-import { HttpClient, Request, Response } from "./core";
+import { HttpClient,  Request, Response } from "./core";
 
 class AxiosClient implements HttpClient {
     private axiosInstance: AxiosInstance;
@@ -25,30 +25,19 @@ class AxiosClient implements HttpClient {
         return this.makeRequest("DELETE", req)
     }
 
-    
-
-    // post(url: Request['url'], data: object, config?:AxiosRequestConfig): Promise<Response> {
-    //     return this.axiosInstance.post(url,data, config ).then(
-
-    //     ).catch(
-    //         err => err
-    //     )
-    // }
-
-    // patch(url: Request['url'], data: object, config?:AxiosRequestConfig): Promise<Response> {
-    //     return this.axiosInstance.post(url,data, config ).then(
-    //         data => data
-    //     ).catch(
-    //         err => err
-    //     )
-    // }
-
-    // delete(url: string, data: string): Promise<Response>{
-    //     return this.axiosInstance.delete(`${url}/${data}`).then().catch(err => err)
-    // }
-
     private makeRequest<ReqBody extends unknown, ResBody extends unknown>(method: Method, request: Request<ReqBody>): Promise<Response<ResBody>> {
-        return this.axiosInstance.request({method, ...request}).then((res)=>{
+        let {params, body, ...rest } = request
+        const queryParams = Object.entries(params || {})
+         .reduce((acc, [key, values]) =>{
+            let valStr: string;
+            if (typeof values === 'object' && Array.isArray(values)) {
+                valStr = values.join(",")
+            } else {
+                valStr = values?.toString()
+            }
+            return {...acc, [key]: valStr}
+        }, {});
+        return this.axiosInstance.request({method, ...rest, params: queryParams, data: body}).then((res)=>{
             return res.data;
         }).catch(err => err)
     }

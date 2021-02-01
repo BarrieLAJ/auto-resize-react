@@ -14,7 +14,7 @@ let post = {body: "quia et suscipit↵suscipit recusandae consequuntur expedita 
 
 const App = () => {
   useEffect(() => {
-    HttpC.get({url: '/posts', data: post}).then((data)=> {
+    HttpC.get({url: '/comments', body: post, params: {postId: [1,2,3]}}).then((data)=> {
       console.log(data)
     })
   }, [])

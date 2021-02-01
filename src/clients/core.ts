@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 
-export type PrimitiveType = undefined | boolean | number | string 
+export type PrimitiveType = boolean | number | string 
 
 export type HttpHeaderName = "Content-Type" | "Content-Length"
 
@@ -15,9 +15,9 @@ export interface HttpHeaders {
 export interface Request<T> {
     key?: string,
     url: string
-    data?: T
+    body?: T
     headers?: PrimitiveType
-    params?: QueryParams
+    params?: {[key: string] : PrimitiveType | Array<PrimitiveType>}
 }
 
 export interface Response<T> {
